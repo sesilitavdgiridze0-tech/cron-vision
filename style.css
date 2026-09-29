@@ -1,0 +1,271 @@
+/* ==========================================================================
+   Chronos - Modern Time Management Landing Page Stylesheet
+   Designed for: Students, Freelancers, Remote Professionals & Busy People
+   Style: Dark Mode, Minimalist, Clean, Neon Purple & Pink Accents
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties / Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  /* Color Palette */
+  --color-bg-primary: #090a12;
+  --color-bg-secondary: #0d0f1d;
+  --color-card-bg: rgba(18, 19, 36, 0.7);
+  --color-card-border: rgba(168, 85, 247, 0.18);
+  --color-card-border-hover: rgba(236, 72, 153, 0.45);
+  
+  /* Brand Accents */
+  --neon-purple: #a855f7;
+  --neon-purple-dark: #9333ea;
+  --neon-purple-light: #c084fc;
+  --neon-pink: #ec4899;
+  --neon-pink-dark: #db2777;
+  --neon-pink-light: #f472b6;
+  
+  /* Text Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Neon Glow Shadows */
+  --shadow-neon-purple: 0 0 25px -3px rgba(168, 85, 247, 0.45);
+  --shadow-neon-pink: 0 0 25px -3px rgba(236, 72, 153, 0.45);
+  --shadow-neon-combo: 0 0 35px -5px rgba(168, 85, 247, 0.35), 0 0 20px -5px rgba(236, 72, 153, 0.3);
+  --shadow-card-elevated: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+
+  /* Typography */
+  --font-family: "Noto Sans Georgian", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base Styles & Global Resets
+   -------------------------------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+  font-family: var(--font-family);
+  background-color: var(--color-bg-primary);
+  color: var(--text-primary);
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  background-color: var(--color-bg-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252243;
+  border-radius: 9999px;
+  border: 2px solid var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-purple-dark);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--neon-purple);
+  color: #ffffff;
+}
+
+/* --------------------------------------------------------------------------
+   3. Glassmorphism & Surface Components
+   -------------------------------------------------------------------------- */
+.glass-card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-card-border);
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  border-color: var(--color-card-border-hover);
+}
+
+.glass-nav {
+  background: rgba(9, 10, 18, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+}
+
+.glass-pill {
+  background: rgba(168, 85, 247, 0.1);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  backdrop-filter: blur(8px);
+}
+
+/* --------------------------------------------------------------------------
+   4. Text & Glow Effects
+   -------------------------------------------------------------------------- */
+.text-glow {
+  text-shadow: 0 0 35px rgba(168, 85, 247, 0.55);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 35px rgba(236, 72, 153, 0.55);
+}
+
+.shadow-neon-purple {
+  box-shadow: var(--shadow-neon-purple);
+}
+
+.shadow-neon-pink {
+  box-shadow: var(--shadow-neon-pink);
+}
+
+.shadow-neon-combo {
+  box-shadow: var(--shadow-neon-combo);
+}
+
+/* Subtle Glowing Borders */
+.glow-border {
+  position: relative;
+}
+
+.glow-border::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. Keyframe Animations
+   -------------------------------------------------------------------------- */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    opacity: 0.25;
+    transform: scale(0.98);
+  }
+  100% {
+    opacity: 0.55;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes toastSlideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 4s ease-in-out infinite alternate;
+}
+
+/* --------------------------------------------------------------------------
+   6. Interactive Pomodoro Widget Styles
+   -------------------------------------------------------------------------- */
+.pomodoro-ring {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.pomodoro-ring circle {
+  transition: stroke-dashoffset 1s linear, stroke 0.4s ease;
+}
+
+/* Interactive Checklist Items */
+.task-item {
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  user-select: none;
+}
+
+.task-item:hover {
+  background-color: rgba(168, 85, 247, 0.12);
+  transform: translateX(3px);
+}
+
+.task-item.completed {
+  opacity: 0.6;
+}
+
+.task-item.completed span.task-title {
+  text-decoration: line-through;
+  color: #94a3b8;
+}
+
+/* --------------------------------------------------------------------------
+   7. Form & Button Polishing
+   -------------------------------------------------------------------------- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px #090a12 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Focus styles for keyboard accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--neon-purple-light);
+  outline-offset: 2px;
+}
+
+/* Active Nav Link Marker */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-purple), var(--neon-pink));
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}

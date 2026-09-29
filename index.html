@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ka" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chronos | დროის მართვისა და პროდუქტიულობის ინოვაციური აპლიკაცია</title>
+  <meta name="description" content="Chronos — დროის მართვის თანამედროვე აპლიკაცია სტუდენტებისთვის, ფრილანსერებისა და პროფესიონალებისთვის. გაზარდეთ პროდუქტიულობა, მართეთ ფოკუსი და დაამარცხეთ გადადება.">
+  
+  <!-- Google Fonts: Noto Sans Georgian & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Georgian:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- External Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans Georgian"', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            chronos: {
+              bg: '#090a12',
+              card: '#121324',
+              surface: '#181932',
+              border: 'rgba(168, 85, 247, 0.15)',
+              neonPurple: '#a855f7',
+              neonPink: '#ec4899',
+              accentLight: '#c084fc',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-chronos-bg text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-purple-600 selection:text-white min-h-screen flex flex-col justify-between">
+
+  <!-- Ambient Glow Background Blobs -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[650px] h-[650px] bg-purple-600/15 rounded-full blur-[140px] animate-pulse-glow"></div>
+    <div class="absolute top-[35%] -left-32 w-[500px] h-[500px] bg-pink-600/10 rounded-full blur-[140px]"></div>
+    <div class="absolute top-[65%] -right-32 w-[550px] h-[550px] bg-purple-700/10 rounded-full blur-[150px]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#a855f7_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.035]"></div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="sticky top-0 z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-purple-500/50 rounded-lg p-1" aria-label="Chronos მთავარი გვერდი">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-600/30 group-hover:shadow-purple-500/60 transition-all duration-300 group-hover:scale-105">
+            <i data-lucide="clock" class="w-5 h-5 text-white"></i>
+          </div>
+          <span class="text-2xl font-black tracking-tight text-white flex items-center">
+            Chronos<span class="text-pink-500">.</span>
+          </span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300" aria-label="მთავარი ნავიგაცია">
+          <a href="#hero" class="nav-link hover:text-purple-400 transition-colors duration-200">მთავარი</a>
+          <a href="#about" class="nav-link hover:text-purple-400 transition-colors duration-200">ჩვენ შესახებ</a>
+          <a href="#features" class="nav-link hover:text-purple-400 transition-colors duration-200">ფუნქციები</a>
+          <a href="#audience" class="nav-link hover:text-purple-400 transition-colors duration-200">ვისთვისაა</a>
+          <a href="#contact" class="nav-link hover:text-purple-400 transition-colors duration-200">კონტაქტი</a>
+        </nav>
+
+        <!-- CTA & Actions -->
+        <div class="hidden md:flex items-center gap-4">
+          <a href="#hero-demo" class="text-sm text-slate-300 hover:text-white px-3 py-2 transition-colors">
+            დემო
+          </a>
+          <a href="#contact" class="relative group overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-purple-400">
+            <span class="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-purple-600 rounded-full group-hover:opacity-100 transition-opacity duration-300"></span>
+            <span class="relative block px-5 py-2.5 rounded-full bg-chronos-bg transition-all duration-300 group-hover:bg-opacity-0 font-semibold text-sm text-white flex items-center gap-2">
+              <span>დაიწყე უფასოდ</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </span>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <button id="mobile-menu-btn" type="button" class="md:hidden text-slate-300 hover:text-white focus:outline-none p-2 rounded-lg bg-purple-950/40 border border-purple-500/20" aria-expanded="false" aria-label="მენიუს გახსნა">
+          <i id="menu-icon" data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-b border-purple-500/20 bg-chronos-bg/95 backdrop-blur-2xl px-6 py-6 transition-all duration-300">
+      <nav class="flex flex-col gap-4 text-base font-medium text-slate-200" aria-label="მობილური ნავიგაცია">
+        <a href="#hero" class="mobile-nav-link hover:text-purple-400 py-1 transition-colors">მთავარი</a>
+        <a href="#about" class="mobile-nav-link hover:text-purple-400 py-1 transition-colors">ჩვენ შესახებ</a>
+        <a href="#features" class="mobile-nav-link hover:text-purple-400 py-1 transition-colors">ფუნქციები</a>
+        <a href="#audience" class="mobile-nav-link hover:text-purple-400 py-1 transition-colors">ვისთვისაა</a>
+        <a href="#contact" class="mobile-nav-link hover:text-purple-400 py-1 transition-colors">კონტაქტი</a>
+      </nav>
+      <div class="mt-6 pt-6 border-t border-purple-900/40 flex flex-col gap-3">
+        <a href="#contact" class="mobile-nav-link w-full text-center py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold shadow-lg shadow-purple-600/30">
+          დაიწყე უფასოდ
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10 flex-grow">
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="relative pt-12 pb-20 md:pt-20 md:pb-32 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          
+          <!-- Left Hero Content -->
+          <div class="lg:col-span-7 text-center lg:text-left">
+            
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-semibold glass-pill text-purple-300 mb-6 shadow-sm shadow-purple-500/10">
+              <span class="flex h-2 w-2 rounded-full bg-pink-500 animate-ping"></span>
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-pink-400"></i>
+              <span>დროის მართვის ახალი თაობა</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] mb-6">
+              მართე შენი დრო, <br class="hidden sm:inline" />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-fuchsia-300 text-glow">
+                აკონტროლე მომავალი
+              </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed mb-8">
+              Chronos არის ინტელექტუალური პლატფორმა, რომელიც დაგეხმარებათ ყოველდღიური ქაოსის დაძლევაში, უწყვეტი ფოკუსის შენარჩუნებასა და ამოცანების მარტივად შესრულებაში. შექმნილია მათთვის, ვისაც სურს დროის მაქსიმალური ფლობა.
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
+              <a href="#contact" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-base shadow-neon-combo transition-all duration-300 hover:scale-[1.03] active:scale-[0.98] flex items-center justify-center gap-2.5">
+                <span>დაიწყე უფასოდ</span>
+                <i data-lucide="zap" class="w-5 h-5 text-yellow-300 fill-yellow-300"></i>
+              </a>
+
+              <a href="#about" class="w-full sm:w-auto px-7 py-4 rounded-xl bg-purple-950/40 hover:bg-purple-900/50 text-slate-200 hover:text-white font-medium text-base border border-purple-500/25 transition-all duration-200 flex items-center justify-center gap-2">
+                <i data-lucide="play-circle" class="w-5 h-5 text-pink-400"></i>
+                <span>როგორ მუშაობს</span>
+              </a>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4 border-t border-purple-900/30">
+              <!-- Avatar Stack -->
+              <div class="flex -space-x-3 overflow-hidden">
+                <div class="inline-block h-10 w-10 rounded-full ring-2 ring-purple-900 bg-purple-600/70 flex items-center justify-center text-xs font-bold text-white">ნს</div>
+                <div class="inline-block h-10 w-10 rounded-full ring-2 ring-purple-900 bg-pink-600/70 flex items-center justify-center text-xs font-bold text-white">გმ</div>
+                <div class="inline-block h-10 w-10 rounded-full ring-2 ring-purple-900 bg-indigo-600/70 flex items-center justify-center text-xs font-bold text-white">ალ</div>
+                <div class="inline-block h-10 w-10 rounded-full ring-2 ring-purple-900 bg-fuchsia-700/80 flex items-center justify-center text-xs font-bold text-white">+50k</div>
+              </div>
+
+              <div class="text-left text-xs sm:text-sm">
+                <div class="flex items-center gap-1 text-yellow-400">
+                  <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                  <i data-lucide="star" class="w-4 h-4 fill-yellow-400"></i>
+                  <span class="font-bold text-slate-100 ml-1">4.9 / 5</span>
+                </div>
+                <p class="text-slate-400 text-xs">50,000+ სტუდენტი და პროფესიონალი ენდობა Chronos-ს</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Hero Visual / Interactive Pomodoro & Task Mockup -->
+          <div id="hero-demo" class="lg:col-span-5 relative">
+            
+            <!-- Glow under card -->
+            <div class="absolute -inset-1 rounded-3xl bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 opacity-30 blur-2xl group-hover:opacity-60 transition duration-1000"></div>
+
+            <div class="relative glass-card rounded-2xl p-6 sm:p-7 shadow-2xl border border-purple-500/30">
+              
+              <!-- Card Header -->
+              <div class="flex items-center justify-between pb-4 border-b border-purple-500/20">
+                <div class="flex items-center gap-3">
+                  <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+                  <div>
+                    <h3 class="font-bold text-sm text-white">ღრმა ფოკუსის სესია</h3>
+                    <p class="text-xs text-purple-300">პომოდოროს ციკლი #2 (25 წთ)</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="px-2.5 py-1 rounded-md text-[11px] font-semibold bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                    FLOW STATE
+                  </span>
+                </div>
+              </div>
+
+              <!-- Interactive Live Pomodoro Countdown -->
+              <div class="my-6 text-center">
+                <div class="relative inline-flex items-center justify-center">
+                  <!-- SVG circular ring -->
+                  <svg class="w-44 h-44 pomodoro-ring" viewBox="0 0 120 120">
+                    <circle cx="60" cy="60" r="50" class="text-purple-950/70" stroke-width="8" stroke="currentColor" fill="transparent" />
+                    <circle id="timer-progress-ring" cx="60" cy="60" r="50" class="text-pink-500" stroke-width="8" stroke-linecap="round" stroke="currentColor" fill="transparent" />
+                  </svg>
+                  <!-- Time Display -->
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span id="timer-display" class="text-4xl font-extrabold text-white font-mono tracking-wider">25:00</span>
+                    <span id="timer-status-text" class="text-[11px] uppercase tracking-wider text-pink-300 font-semibold mt-1">მზადაა ფოკუსისთვის</span>
+                  </div>
+                </div>
+
+                <!-- Timer Controls -->
+                <div class="flex items-center justify-center gap-3 mt-4">
+                  <button id="timer-toggle-btn" type="button" class="px-5 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold text-xs flex items-center gap-1.5 shadow-md shadow-purple-600/30 transition-all active:scale-95 cursor-pointer">
+                    <i id="timer-toggle-icon" data-lucide="play" class="w-3.5 h-3.5 fill-white"></i>
+                    <span id="timer-btn-label">დაწყება</span>
+                  </button>
+                  <button id="timer-reset-btn" type="button" class="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-purple-500/20 transition-all active:scale-95 flex items-center gap-1 cursor-pointer">
+                    <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                    <span>განულება</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Mini Task Checklist (Interactive) -->
+              <div class="space-y-2.5 pt-4 border-t border-purple-500/20">
+                <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+                  <span>დღევანდელი პრიორიტეტები</span>
+                  <span id="task-counter" class="text-purple-400 font-medium">1/3 დასრულებული</span>
+                </div>
+
+                <!-- Task 1 (Completed) -->
+                <div class="task-item completed flex items-center gap-3 p-2.5 rounded-lg bg-purple-950/20 border border-purple-500/10 text-xs text-slate-400">
+                  <div class="w-4 h-4 rounded-md bg-purple-500/30 text-purple-300 flex items-center justify-center shrink-0">
+                    <i data-lucide="check" class="task-checkbox-icon w-3 h-3 text-pink-400"></i>
+                  </div>
+                  <span class="task-title">UX არქიტექტურისა და განრიგის ანალიზი</span>
+                </div>
+
+                <!-- Task 2 (Active) -->
+                <div class="task-item flex items-center gap-3 p-2.5 rounded-lg bg-gradient-to-r from-purple-900/30 to-pink-900/20 border border-pink-500/30 text-xs text-white shadow-sm">
+                  <div class="w-4 h-4 rounded-md bg-pink-500 text-white flex items-center justify-center shrink-0">
+                    <i data-lucide="check" class="task-checkbox-icon hidden w-3 h-3 text-white"></i>
+                  </div>
+                  <span class="task-title font-semibold text-slate-100">Chronos პროექტის მთავარი ეტაპი</span>
+                  <span class="ml-auto text-[10px] bg-pink-500/30 text-pink-200 px-1.5 py-0.5 rounded">მიმდინარე</span>
+                </div>
+
+                <!-- Task 3 (Upcoming) -->
+                <div class="task-item flex items-center gap-3 p-2.5 rounded-lg bg-purple-950/20 border border-purple-500/10 text-xs text-slate-300">
+                  <div class="w-4 h-4 rounded-md border border-slate-600 flex items-center justify-center shrink-0">
+                    <i data-lucide="check" class="task-checkbox-icon hidden w-3 h-3 text-pink-400"></i>
+                  </div>
+                  <span class="task-title">კვირის პროდუქტიულობის რეპორტის შეჯამება</span>
+                </div>
+              </div>
+
+              <!-- Floating Metric Pill -->
+              <div class="absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 bg-gradient-to-r from-purple-900/90 to-slate-900/90 backdrop-blur-xl border border-purple-400/40 rounded-xl px-4 py-2.5 shadow-xl flex items-center gap-2.5 animate-float-slow">
+                <div class="w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 flex items-center justify-center">
+                  <i data-lucide="trending-up" class="w-4 h-4"></i>
+                </div>
+                <div class="text-left">
+                  <p class="text-[10px] text-slate-400 font-medium">პროდუქტიულობის ზრდა</p>
+                  <p class="text-xs font-bold text-white">+42% ამ კვირაში</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS STRIP -->
+    <section class="border-y border-purple-500/15 bg-chronos-card/30 backdrop-blur-sm py-10 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
+          
+          <div class="p-4 rounded-xl glass-card border border-purple-500/10">
+            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">50K+</div>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">აქტიური მომხმარებელი</p>
+          </div>
+
+          <div class="p-4 rounded-xl glass-card border border-purple-500/10">
+            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">2.5x</div>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">ყოველდღიური ეფექტურობა</p>
+          </div>
+
+          <div class="p-4 rounded-xl glass-card border border-purple-500/10">
+            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">99.4%</div>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">კმაყოფილების მაჩვენებელი</p>
+          </div>
+
+          <div class="p-4 rounded-xl glass-card border border-purple-500/10">
+            <div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">4.5 მლნ+</div>
+            <p class="text-xs sm:text-sm text-slate-300 mt-1">ფოკუს-საათი დაზოგილი</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. ABOUT SECTION -->
+    <section id="about" class="py-20 md:py-28 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Left: Semantic Text Block About Chronos -->
+          <article class="lg:col-span-7 space-y-6">
+            
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold glass-pill text-purple-300">
+              <i data-lucide="compass" class="w-3.5 h-3.5 text-pink-400"></i>
+              <span>ჩვენი მისია & ხედვა</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+              რატომ შევქმენით <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Chronos?</span>
+            </h2>
+
+            <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+              თანამედროვე ციფრულ ეპოქაში ყურადღების გაფანტვა ყველაზე დიდი გამოწვევაა: დაუსრულებელი შეტყობინებები, ქაოტური to-do სიები და მუდმივი დაღლილობის შეგრძნება. Chronos შეიქმნა ერთი მიზნით — დაგიბრუნოთ კონტროლი საკუთარ დროზე და ენერგიაზე.
+            </p>
+
+            <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+              ჩვენ გავაერთიანეთ თანამედროვე კოგნიტური მეცნიერება, ჭკვიანი ალგორითმები და მინიმალისტური Dark Mode დიზაინი. Chronos არ არის უბრალო წამზომი ან კალენდარი — ეს არის თქვენი პერსონალური ინტელექტუალური ასისტენტი, რომელიც გიცავთ პროკრასტინაციისგან და გეხმარებათ მიზნების ეტაპობრივ, მშვიდ და შედეგიან მიღწევაში.
+            </p>
+
+            <!-- 3 Core Values List -->
+            <div class="grid sm:grid-cols-3 gap-4 pt-4">
+              
+              <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-500/15">
+                <div class="w-8 h-8 rounded-lg bg-purple-600/30 text-purple-300 flex items-center justify-center mb-3">
+                  <i data-lucide="target" class="w-4 h-4"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm mb-1">სუფთა ფოკუსი</h3>
+                <p class="text-xs text-slate-400">მინიმალისტური გარემო ხელისშემშლელი ფაქტორების გარეშე.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-500/15">
+                <div class="w-8 h-8 rounded-lg bg-pink-600/30 text-pink-300 flex items-center justify-center mb-3">
+                  <i data-lucide="cpu" class="w-4 h-4"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm mb-1">ჭკვიანი AI</h3>
+                <p class="text-xs text-slate-400">ალგორითმი, რომელიც ეგუება თქვენს ბუნებრივ ბიორიტმს.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-purple-950/20 border border-purple-500/15">
+                <div class="w-8 h-8 rounded-lg bg-indigo-600/30 text-indigo-300 flex items-center justify-center mb-3">
+                  <i data-lucide="shield-check" class="w-4 h-4"></i>
+                </div>
+                <h3 class="font-bold text-white text-sm mb-1">დაცულობა</h3>
+                <p class="text-xs text-slate-400">თქვენი მონაცემები 100%-ით კონფიდენციალური და დაცულია.</p>
+              </div>
+
+            </div>
+
+          </article>
+
+          <!-- Right: Visual Roadmap / Workflow Graphic -->
+          <div class="lg:col-span-5">
+            <div class="relative glass-card rounded-2xl p-6 sm:p-8 border border-purple-500/20 shadow-xl overflow-hidden">
+              <div class="absolute -right-8 -top-8 w-40 h-40 bg-pink-600/20 rounded-full blur-3xl"></div>
+              
+              <h3 class="text-lg font-bold text-white mb-6 flex items-center gap-2">
+                <i data-lucide="layers" class="w-5 h-5 text-purple-400"></i>
+                <span>Chronos-ის ყოველდღიური ციკლი</span>
+              </h3>
+
+              <div class="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-gradient-to-b before:from-purple-500 before:via-pink-500 before:to-purple-900">
+                
+                <!-- Step 1 -->
+                <div class="relative flex items-start gap-4">
+                  <div class="relative z-10 w-7 h-7 rounded-full bg-purple-600 border-2 border-chronos-bg text-white flex items-center justify-center text-xs font-bold shrink-0">
+                    1
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white">ჭკვიანი დაგეგმვა (09:00)</h4>
+                    <p class="text-xs text-slate-400 mt-1">ამოცანების პრიორიტეტიზაცია AI Time-Boxing მეთოდით.</p>
+                  </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="relative flex items-start gap-4">
+                  <div class="relative z-10 w-7 h-7 rounded-full bg-pink-600 border-2 border-chronos-bg text-white flex items-center justify-center text-xs font-bold shrink-0">
+                    2
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white">ღრმა მუშაობის ფაზა (Flow State)</h4>
+                    <p class="text-xs text-slate-400 mt-1">პომოდოროს ტაიმერი, შეტყობინებების ბლოკირება და ხმის თერაპია.</p>
+                  </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="relative flex items-start gap-4">
+                  <div class="relative z-10 w-7 h-7 rounded-full bg-fuchsia-600 border-2 border-chronos-bg text-white flex items-center justify-center text-xs font-bold shrink-0">
+                    3
+                  </div>
+                  <div>
+                    <h4 class="text-sm font-bold text-white">ანალიტიკა და შეჯამება (18:00)</h4>
+                    <p class="text-xs text-slate-400 mt-1">ყოველდღიური შედეგების ვიზუალიზაცია და ჩვევების ანალიზი.</p>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Bottom highlight box -->
+              <div class="mt-8 p-3.5 rounded-xl bg-gradient-to-r from-purple-900/40 to-pink-900/30 border border-purple-500/20 flex items-center gap-3">
+                <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400 shrink-0"></i>
+                <span class="text-xs text-slate-300 font-medium">მარტივი ინტეგრაცია Google Calendar, Notion და Trello-სთან</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. FEATURES SECTION (3 CARDS REQUIRED) -->
+    <section id="features" class="py-20 md:py-28 relative bg-chronos-card/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Section Header -->
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold glass-pill text-purple-300 mb-4">
+            <i data-lucide="sparkle" class="w-3.5 h-3.5 text-pink-400"></i>
+            <span>მაღალი პროდუქტიულობის ფუნქციონალი</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+            ყველაფერი, რაც გჭირდებათ <br />
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-fuchsia-300">
+              დროის სრულყოფილი მართვისთვის
+            </span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
+            3 მთავარი საყრდენი, რომელიც Chronos-ს აქცევს შეუცვლელ იარაღად ყოველდღიურ ცხოვრებასა და კარიერაში.
+          </p>
+        </div>
+
+        <!-- 3 Feature Cards Grid (Mobile stacks vertically, desktop 3 columns) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Card 1: AI Time Blocking -->
+          <div class="group relative rounded-2xl p-[1px] bg-gradient-to-b from-purple-500/30 via-purple-500/10 to-transparent hover:from-purple-500 hover:to-pink-500 transition-all duration-500">
+            <div class="h-full glass-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-neon-purple">
+              
+              <div>
+                <!-- Icon with glowing background -->
+                <div class="w-14 h-14 rounded-2xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-lg shadow-purple-600/20">
+                  <i data-lucide="calendar" class="w-7 h-7"></i>
+                </div>
+
+                <div class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-purple-500/15 text-purple-300 border border-purple-500/20 mb-3">
+                  ხელოვნური ინტელექტი
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                  ჭკვიანი AI დროის ბლოკინგი
+                </h3>
+
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                  დაივიწყეთ გადატვირთული კალენდრები. Chronos-ის AI ავტომატურად აანალიზებს თქვენს ამოცანებს, ენერგიის პიკურ საათებს და ქმნის ოპტიმალურ, დაბალანსებულ განრიგს ზედმეტი სტრესის გარეშე.
+                </p>
+              </div>
+
+              <!-- Feature Highlights -->
+              <div class="pt-4 border-t border-purple-500/20 space-y-2">
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <i data-lucide="check" class="w-4 h-4 text-pink-400"></i>
+                  <span>დღის ავტომატური რეორგანიზაცია</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <i data-lucide="check" class="w-4 h-4 text-pink-400"></i>
+                  <span>ორმხრივი კალენდარული სინქრონი</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 2: Deep Focus & Pomodoro -->
+          <div class="group relative rounded-2xl p-[1px] bg-gradient-to-b from-pink-500/40 via-purple-500/10 to-transparent hover:from-pink-500 hover:to-purple-500 transition-all duration-500">
+            <div class="h-full glass-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-neon-pink">
+              
+              <div>
+                <!-- Icon with glowing background -->
+                <div class="w-14 h-14 rounded-2xl bg-pink-600/20 border border-pink-500/30 flex items-center justify-center text-pink-400 mb-6 group-hover:scale-110 group-hover:bg-pink-600 group-hover:text-white transition-all duration-300 shadow-lg shadow-pink-600/20">
+                  <i data-lucide="flame" class="w-7 h-7"></i>
+                </div>
+
+                <div class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-pink-500/15 text-pink-300 border border-pink-500/20 mb-3">
+                  ფოკუსის რეჟიმი
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-pink-300 transition-colors">
+                  ულტრა-ფოკუსი და პომოდორო
+                </h3>
+
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                  შედით „ნაკადის“ მდგომარეობაში (Flow State). სრული იზოლაცია გამფანტველი შეტყობინებებისგან, ინტეგრირებული 25/5 პომოდორო სესიები და დამამშვიდებელი ბუნებრივი ხმოვანი ფონი.
+                </p>
+              </div>
+
+              <!-- Feature Highlights -->
+              <div class="pt-4 border-t border-purple-500/20 space-y-2">
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <i data-lucide="check" class="w-4 h-4 text-purple-400"></i>
+                  <span>დისტანციური ყურადღების ფარი</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <i data-lucide="check" class="w-4 h-4 text-purple-400"></i>
+                  <span>ბინაურალური & Lo-Fi მუსიკალური ფონი</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Card 3: Deep Analytics & Habit Tracking -->
+          <div class="group relative rounded-2xl p-[1px] bg-gradient-to-b from-purple-500/30 via-pink-500/10 to-transparent hover:from-purple-500 hover:to-pink-500 transition-all duration-500">
+            <div class="h-full glass-card rounded-2xl p-7 sm:p-8 flex flex-col justify-between transition-all duration-300 group-hover:translate-y-[-4px] group-hover:shadow-neon-purple">
+              
+              <div>
+                <!-- Icon with glowing background -->
+                <div class="w-14 h-14 rounded-2xl bg-purple-600/20 border border-purple-500/30 flex items-center justify-center text-purple-400 mb-6 group-hover:scale-110 group-hover:bg-purple-600 group-hover:text-white transition-all duration-300 shadow-lg shadow-purple-600/20">
+                  <i data-lucide="bar-chart-3" class="w-7 h-7"></i>
+                </div>
+
+                <div class="inline-block px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-purple-500/15 text-purple-300 border border-purple-500/20 mb-3">
+                  ანალიტიკა
+                </div>
+
+                <h3 class="text-xl font-bold text-white mb-3 group-hover:text-purple-300 transition-colors">
+                  ღრმა ანალიტიკა და ჩვევები
+                </h3>
+
+                <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                  ზუსტად დაინახეთ, სად მიდის თქვენი ძვირფასი დრო. ვიზუალური გრაფიკები, კვირის რეპორტები და უწყვეტი ჩვევების ჯაჭვი (Streaks), რათა მიღწეული პროგრესი არასდროს დაკარგოთ.
+                </p>
+              </div>
+
+              <!-- Feature Highlights -->
+              <div class="pt-4 border-t border-purple-500/20 space-y-2">
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <i data-lucide="check" class="w-4 h-4 text-pink-400"></i>
+                  <span>ყოველკვირეული პერსონალური რეპორტები</span>
+                </div>
+                <div class="flex items-center gap-2 text-xs text-slate-300">
+                  <i data-lucide="check" class="w-4 h-4 text-pink-400"></i>
+                  <span>ჩვევების უწყვეტობის თრექერი</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. TARGET AUDIENCE SECTION -->
+    <section id="audience" class="py-20 md:py-28 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold glass-pill text-purple-300 mb-4">
+            <i data-lucide="users" class="w-3.5 h-3.5 text-pink-400"></i>
+            <span>მორგებულია ყველაზე</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+            ვისთვის არის შექმნილი <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Chronos?</span>
+          </h2>
+          <p class="text-slate-400 text-sm sm:text-base">
+            გადაწყვეტა მათთვის, ვინც აფასებს ყოველ წუთს და მიისწრაფვის წარმატებისკენ.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <!-- Audience 1: Students -->
+          <div class="glass-card rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-2">
+            <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center mb-4">
+              <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">სტუდენტები</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              საგამოცდო მასალის ეტაპობრივი მომზადება, სემესტრული გეგმები და ღამის თენების გარეშე მაღალი აკადემიური შედეგები.
+            </p>
+          </div>
+
+          <!-- Audience 2: Freelancers -->
+          <div class="glass-card rounded-2xl p-6 border border-purple-500/20 hover:border-pink-500/40 transition-all duration-300 hover:-translate-y-2">
+            <div class="w-12 h-12 rounded-xl bg-pink-600/20 text-pink-400 flex items-center justify-center mb-4">
+              <i data-lucide="laptop" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">ფრილანსერები</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              რამდენიმე პროექტის ერთდროული მართვა, საათობრივი აღრიცხვა და მკაცრი deadline-ების უპრობლემოდ დაცვა.
+            </p>
+          </div>
+
+          <!-- Audience 3: Remote Pros -->
+          <div class="glass-card rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 hover:-translate-y-2">
+            <div class="w-12 h-12 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center mb-4">
+              <i data-lucide="briefcase" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">დისტანციური პროფესიონალები</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              მკაფიო ზღვარი სამსახურსა და პირად ცხოვრებას შორის. ენერგიის გადანაწილება ონლაინ შეხვედრებსა და ღრმა მუშაობას შორის.
+            </p>
+          </div>
+
+          <!-- Audience 4: Busy People -->
+          <div class="glass-card rounded-2xl p-6 border border-purple-500/20 hover:border-pink-500/40 transition-all duration-300 hover:-translate-y-2">
+            <div class="w-12 h-12 rounded-xl bg-fuchsia-600/20 text-fuchsia-400 flex items-center justify-center mb-4">
+              <i data-lucide="clock" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">დაკავებული ადამიანები</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              ყოველდღიური რუტინების გამარტივება, ოჯახისა და საკუთარი ჰობისთვის თავისუფალი დროის გამოთავისუფლება.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL QUOTE HIGHLIGHT -->
+    <section class="py-12 bg-gradient-to-r from-purple-950/20 via-pink-950/20 to-purple-950/20 border-y border-purple-500/15">
+      <div class="max-w-4xl mx-auto px-4 text-center">
+        <i data-lucide="quote" class="w-10 h-10 text-pink-400/50 mx-auto mb-4"></i>
+        <blockquote class="text-lg sm:text-xl md:text-2xl font-medium text-slate-200 italic leading-relaxed mb-6">
+          „Chronos-ის გამოყენებამ ჩემი სამუშაო დღე სრულიად შეცვალა. ფრილანსერობისას დროის აღქმა ხშირად მეკარგებოდა, ახლა კი ზუსტად ვიცი რას და როდის ვაკეთებ. დღეში მინიმუმ 2 საათს ვიგებ.“
+        </blockquote>
+        <div class="flex items-center justify-center gap-3">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+            ნბ
+          </div>
+          <div class="text-left">
+            <p class="font-bold text-white text-sm">ნინო ბერიძე</p>
+            <p class="text-xs text-purple-300">უფროსი UI/UX დიზაინერი & ფრილანსერი</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. CONTACT SECTION (WORKING CONTACT FORM) -->
+    <section id="contact" class="py-20 md:py-28 relative">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Left: Contact Details & Info -->
+          <div class="lg:col-span-5 space-y-8">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold glass-pill text-purple-300 mb-4">
+                <i data-lucide="mail" class="w-3.5 h-3.5 text-pink-400"></i>
+                <span>კავშირი ჩვენთან</span>
+              </div>
+              <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mb-4">
+                დაგვიკავშირდით <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
+                  მზად ვართ დასახმარებლად
+                </span>
+              </h2>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                გაქვთ შეკითხვები Chronos-ის შესახებ, გსურთ პერსონალური დემო ან თანამშრომლობა? გამოგვიგზავნეთ შეტყობინება და ჩვენი გუნდი 2 საათის განმავლობაში გიპასუხებთ.
+              </p>
+            </div>
+
+            <!-- Direct Contact List -->
+            <div class="space-y-4">
+              <div class="flex items-center gap-4 p-4 rounded-xl glass-card border border-purple-500/15">
+                <div class="w-10 h-10 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-400 font-medium">ელ-ფოსტა</p>
+                  <a href="mailto:support@chronos.ge" class="text-sm font-semibold text-white hover:text-pink-400 transition-colors">support@chronos.ge</a>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 p-4 rounded-xl glass-card border border-purple-500/15">
+                <div class="w-10 h-10 rounded-xl bg-pink-600/20 text-pink-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="map-pin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-400 font-medium">ლოკაცია</p>
+                  <p class="text-sm font-semibold text-white">თბილისი, საქართველო (დისტანციური Hub)</p>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4 p-4 rounded-xl glass-card border border-purple-500/15">
+                <div class="w-10 h-10 rounded-xl bg-indigo-600/20 text-indigo-400 flex items-center justify-center shrink-0">
+                  <i data-lucide="clock" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-slate-400 font-medium">მხარდაჭერის საათები</p>
+                  <p class="text-sm font-semibold text-white">ორშაბათი - პარასკევი: 24/7 ონლაინ</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Links -->
+            <div>
+              <p class="text-xs text-slate-400 font-medium mb-3">შემოგვიერთდით სოციალურ ქსელებში:</p>
+              <div class="flex items-center gap-3">
+                <a href="#hero" class="w-10 h-10 rounded-lg bg-slate-800/80 hover:bg-purple-600 text-slate-300 hover:text-white flex items-center justify-center transition-all border border-purple-500/20" aria-label="LinkedIn">
+                  <i data-lucide="linkedin" class="w-4 h-4"></i>
+                </a>
+                <a href="#hero" class="w-10 h-10 rounded-lg bg-slate-800/80 hover:bg-pink-600 text-slate-300 hover:text-white flex items-center justify-center transition-all border border-purple-500/20" aria-label="Twitter">
+                  <i data-lucide="twitter" class="w-4 h-4"></i>
+                </a>
+                <a href="#hero" class="w-10 h-10 rounded-lg bg-slate-800/80 hover:bg-purple-600 text-slate-300 hover:text-white flex items-center justify-center transition-all border border-purple-500/20" aria-label="GitHub">
+                  <i data-lucide="github" class="w-4 h-4"></i>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Contact Form -->
+          <div class="lg:col-span-7">
+            <div class="relative glass-card rounded-2xl p-6 sm:p-10 border border-purple-500/25 shadow-2xl">
+              
+              <h3 class="text-xl font-bold text-white mb-2">მოგვწერეთ შეტყობინება</h3>
+              <p class="text-xs sm:text-sm text-slate-400 mb-8">შეავსეთ ქვემოთ მოცემული ფორმა და ჩვენი გუნდი დაუყოვნებლივ დაგიკავშირდებათ.</p>
+
+              <!-- Form Element -->
+              <form id="contact-form" class="space-y-6" novalidate>
+                
+                <!-- Name Field -->
+                <div>
+                  <label for="contact-name" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    თქვენი სახელი <span class="text-pink-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <i data-lucide="user" class="w-4 h-4"></i>
+                    </div>
+                    <input 
+                      type="text" 
+                      id="contact-name" 
+                      name="name" 
+                      required 
+                      placeholder="მაგ: გიორგი მაისურაძე"
+                      class="w-full pl-10 pr-4 py-3.5 rounded-xl bg-chronos-bg/80 border border-purple-500/20 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 text-white placeholder-slate-500 text-sm transition-all outline-none"
+                    >
+                  </div>
+                  <p id="name-error" class="text-xs text-pink-400 mt-1.5 hidden flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                    <span>გთხოვთ მიუთითოთ თქვენი სახელი (მინიმუმ 2 ასო)</span>
+                  </p>
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                  <label for="contact-email" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    ელ-ფოსტის მისამართი <span class="text-pink-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                      <i data-lucide="mail" class="w-4 h-4"></i>
+                    </div>
+                    <input 
+                      type="email" 
+                      id="contact-email" 
+                      name="email" 
+                      required 
+                      placeholder="მაგ: giorgi@example.ge"
+                      class="w-full pl-10 pr-4 py-3.5 rounded-xl bg-chronos-bg/80 border border-purple-500/20 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 text-white placeholder-slate-500 text-sm transition-all outline-none"
+                    >
+                  </div>
+                  <p id="email-error" class="text-xs text-pink-400 mt-1.5 hidden flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                    <span>გთხოვთ მიუთითოთ ვალიდური ელ-ფოსტის მისამართი</span>
+                  </p>
+                </div>
+
+                <!-- Message Field -->
+                <div>
+                  <label for="contact-message" class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
+                    შეტყობინება <span class="text-pink-500">*</span>
+                  </label>
+                  <div class="relative">
+                    <textarea 
+                      id="contact-message" 
+                      name="message" 
+                      rows="4" 
+                      required 
+                      placeholder="მოგვიყევით თქვენი მიზნების ან შეკითხვების შესახებ..."
+                      class="w-full p-4 rounded-xl bg-chronos-bg/80 border border-purple-500/20 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 text-white placeholder-slate-500 text-sm transition-all outline-none resize-none"
+                    ></textarea>
+                  </div>
+                  <p id="message-error" class="text-xs text-pink-400 mt-1.5 hidden flex items-center gap-1">
+                    <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                    <span>გთხოვთ შეიყვანოთ შეტყობინების ტექსტი (მინიმუმ 5 სიმბოლო)</span>
+                  </p>
+                </div>
+
+                <!-- Submit Button -->
+                <button 
+                  type="submit" 
+                  id="submit-btn" 
+                  class="w-full py-4 px-6 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 hover:from-purple-500 hover:to-pink-500 text-white font-bold text-base shadow-neon-combo transition-all duration-300 hover:scale-[1.01] active:scale-[0.99] flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <span id="btn-text">შეტყობინების გაგზავნა</span>
+                  <i id="btn-icon" data-lucide="send" class="w-4 h-4"></i>
+                  <span id="btn-spinner" class="hidden animate-spin">
+                    <i data-lucide="loader-2" class="w-4 h-4"></i>
+                  </span>
+                </button>
+
+              </form>
+
+              <!-- Form Success Feedback Alert (Hidden by default) -->
+              <div id="form-success" class="hidden mt-6 p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 flex items-start gap-3 animate-fade-in">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                <div>
+                  <h4 class="font-bold text-sm text-white">მადლობა! შეტყობინება წარმატებით გაიგზავნა</h4>
+                  <p class="text-xs text-emerald-300 mt-1">Chronos-ის გუნდი თქვენს მიერ მითითებულ ელ-ფოსტაზე უახლოეს პერიოდში გამოგიგზავნით პასუხს.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-purple-500/15 bg-chronos-bg/95 relative z-10 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        
+        <!-- Brand Summary -->
+        <div class="md:col-span-2 space-y-4">
+          <a href="#hero" class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center">
+              <i data-lucide="clock" class="w-4 h-4 text-white"></i>
+            </div>
+            <span class="text-xl font-bold text-white tracking-tight">Chronos<span class="text-pink-500">.</span></span>
+          </a>
+          <p class="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
+            ჭკვიანი დროის მართვის აპლიკაცია სტუდენტებისთვის, ფრილანსერებისა და პროდუქტიული ადამიანებისთვის. გაზარდე ფოკუსი ყოველდღიურად.
+          </p>
+          <div class="text-xs text-slate-300 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>სერვერის სტატუსი: 100% გამართული</span>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">ნავიგაცია</h4>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-400">
+            <li><a href="#hero" class="hover:text-purple-400 transition-colors">მთავარი</a></li>
+            <li><a href="#about" class="hover:text-purple-400 transition-colors">ჩვენ შესახებ</a></li>
+            <li><a href="#features" class="hover:text-purple-400 transition-colors">ფუნქციები</a></li>
+            <li><a href="#audience" class="hover:text-purple-400 transition-colors">ვისთვისაა</a></li>
+            <li><a href="#contact" class="hover:text-purple-400 transition-colors">კონტაქტი</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal / Info -->
+        <div>
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">კონფიდენციალურობა</h4>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-400">
+            <li><a href="#about" class="hover:text-purple-400 transition-colors">კონფიდენციალურობის პოლიტიკა</a></li>
+            <li><a href="#about" class="hover:text-purple-400 transition-colors">მომსახურების პირობები</a></li>
+            <li><a href="#about" class="hover:text-purple-400 transition-colors">უსაფრთხოება</a></li>
+            <li><a href="#contact" class="hover:text-purple-400 transition-colors">მხარდაჭერის ცენტრი</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Bottom Bar -->
+      <div class="pt-8 border-t border-purple-900/30 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-300">
+        <p>© 2026 Chronos. ყველა უფლება დაცულია.</p>
+        <p class="flex items-center gap-1">
+          შექმნილია თანამედროვე <span class="text-pink-400 font-semibold">HTML5, CSS3 & JavaScript</span> ტექნოლოგიით
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Toast Notification Container for Form & Actions -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none" role="alert" aria-live="polite">
+    <div class="glass-card bg-[#141529]/95 border border-purple-500/40 rounded-xl px-5 py-3.5 shadow-2xl flex items-center gap-3">
+      <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+        <i data-lucide="check" class="w-4 h-4"></i>
+      </div>
+      <div>
+        <h5 class="text-xs font-bold text-white" id="toast-title">შეტყობინება გაგზავნილია</h5>
+        <p class="text-[11px] text-slate-300" id="toast-desc">მადლობა დაკავშირებისთვის!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- External JavaScript File -->
+  <script src="script.js" defer></script>
+</body>
+</html>
